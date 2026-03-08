@@ -1,0 +1,177 @@
+Mar 08 17:10:40 ip-172-31-69-206 systemd[1]: Started Anomaly Detection FastAPI Service.
+Mar 08 17:10:41 ip-172-31-69-206 fastapi[4514]:    FastAPI   Starting production server 🚀
+Mar 08 17:10:41 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:41 ip-172-31-69-206 fastapi[4514]:              Searching for package file structure from directories with
+Mar 08 17:10:41 ip-172-31-69-206 fastapi[4514]:              __init__.py files
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:              Importing from /home/ubuntu/app
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:     module   🐍 app.py
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:       code   Importing the FastAPI app object from the module with the following
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:              code:
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:              from app import app
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:        app   Using import string: app:app
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:     server   Server started at http://0.0.0.0:8000
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:     server   Documentation at http://0.0.0.0:8000/docs
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:              Logs:
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:  
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:       INFO   Started server process [4514]
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:       INFO   Waiting for application startup.
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:       INFO   Application startup complete.
+Mar 08 17:10:43 ip-172-31-69-206 fastapi[4514]:       INFO   Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+Mar 08 17:16:31 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.108:11813 - "POST /notify HTTP/1.1" 200
+Mar 08 17:38:12 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:1553 - "GET / HTTP/1.1" 404
+Mar 08 17:38:12 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:1553 - "GET /favicon.ico HTTP/1.1" 404
+Mar 08 17:38:17 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:1553 - "GET / HTTP/1.1" 404
+Mar 08 17:39:18 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:6743 - "GET /notify HTTP/1.1" 405
+Mar 08 17:39:24 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:29271 - "GET /notify HTTP/1.1" 405
+Mar 08 17:39:38 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:23694 - "GET /health HTTP/1.1" 200
+Mar 08 17:40:09 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:17900 - "GET /notify HTTP/1.1" 405
+Mar 08 17:40:54 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:9661 - "GET /anomalies/recent HTTP/1.1" 200
+Mar 08 17:41:07 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:12927 - "GET /anomalies/summary HTTP/1.1" 200
+Mar 08 17:41:17 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:31152 - "GET /baseline/current HTTP/1.1" 200
+Mar 08 17:41:28 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:9584 - "GET /docs HTTP/1.1" 200
+Mar 08 17:41:29 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:9584 - "GET /openapi.json HTTP/1.1" 200
+Mar 08 18:01:54 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.160.19:48582 - "POST /notify HTTP/1.1" 200
+Mar 08 18:02:54 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180153.csv
+Mar 08 18:02:54 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:02:54 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:02:54 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.21:51858 - "POST /notify HTTP/1.1" 200
+Mar 08 18:03:54 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180253.csv
+Mar 08 18:03:54 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:03:54 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:03:54 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.160.43:5215 - "POST /notify HTTP/1.1" 200
+Mar 08 18:04:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180353.csv
+Mar 08 18:04:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:04:55 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:04:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.163.0:60920 - "POST /notify HTTP/1.1" 200
+Mar 08 18:05:54 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180453.csv
+Mar 08 18:05:54 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:05:54 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:05:54 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.26:19633 - "POST /notify HTTP/1.1" 200
+Mar 08 18:06:54 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180553.csv
+Mar 08 18:06:54 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:06:54 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:06:54 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.31:55642 - "POST /notify HTTP/1.1" 200
+Mar 08 18:07:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180654.csv
+Mar 08 18:07:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:07:55 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:07:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.15:19784 - "POST /notify HTTP/1.1" 200
+Mar 08 18:08:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180754.csv
+Mar 08 18:08:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:08:55 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:08:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.43:30867 - "POST /notify HTTP/1.1" 200
+Mar 08 18:09:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180854.csv
+Mar 08 18:09:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:09:55 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:09:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.163.1:16777 - "POST /notify HTTP/1.1" 200
+Mar 08 18:10:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T180954.csv
+Mar 08 18:10:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:10:55 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:10:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.58:43438 - "POST /notify HTTP/1.1" 200
+Mar 08 18:11:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181054.csv
+Mar 08 18:11:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:11:55 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:11:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.54:6356 - "POST /notify HTTP/1.1" 200
+Mar 08 18:12:56 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181154.csv
+Mar 08 18:12:56 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:12:56 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:12:56 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.149:26757 - "POST /notify HTTP/1.1" 200
+Mar 08 18:13:55 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181254.csv
+Mar 08 18:13:55 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:13:55 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:13:55 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.53:9468 - "POST /notify HTTP/1.1" 200
+Mar 08 18:14:56 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181355.csv
+Mar 08 18:14:56 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:14:56 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:14:56 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.160.47:13472 - "POST /notify HTTP/1.1" 200
+Mar 08 18:15:56 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181455.csv
+Mar 08 18:15:56 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:15:56 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:15:56 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.91:45692 - "POST /notify HTTP/1.1" 200
+Mar 08 18:16:56 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181555.csv
+Mar 08 18:16:56 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:16:56 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:16:56 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.160.43:45705 - "POST /notify HTTP/1.1" 200
+Mar 08 18:17:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181655.csv
+Mar 08 18:17:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:17:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:17:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.105:40718 - "POST /notify HTTP/1.1" 200
+Mar 08 18:18:56 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181755.csv
+Mar 08 18:18:56 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:18:56 ip-172-31-69-206 fastapi[4514]:   Done: 8/100 anomalies flagged
+Mar 08 18:18:56 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.125:32204 - "POST /notify HTTP/1.1" 200
+Mar 08 18:19:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181855.csv
+Mar 08 18:19:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:19:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:19:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.163.3:37566 - "POST /notify HTTP/1.1" 200
+Mar 08 18:20:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T181956.csv
+Mar 08 18:20:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:20:57 ip-172-31-69-206 fastapi[4514]:   Done: 7/100 anomalies flagged
+Mar 08 18:20:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.160.41:1249 - "POST /notify HTTP/1.1" 200
+Mar 08 18:21:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182056.csv
+Mar 08 18:21:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:21:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:21:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.125:35409 - "POST /notify HTTP/1.1" 200
+Mar 08 18:22:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182156.csv
+Mar 08 18:22:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:22:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:22:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.163.1:50633 - "POST /notify HTTP/1.1" 200
+Mar 08 18:23:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182256.csv
+Mar 08 18:23:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:23:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:23:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.142:28686 - "POST /notify HTTP/1.1" 200
+Mar 08 18:24:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182356.csv
+Mar 08 18:24:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:24:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:24:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.22:34337 - "POST /notify HTTP/1.1" 200
+Mar 08 18:25:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182456.csv
+Mar 08 18:25:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:25:58 ip-172-31-69-206 fastapi[4514]:   Done: 8/100 anomalies flagged
+Mar 08 18:25:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.167:20188 - "POST /notify HTTP/1.1" 200
+Mar 08 18:26:57 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182556.csv
+Mar 08 18:26:57 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:26:57 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:26:57 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.41:57618 - "POST /notify HTTP/1.1" 200
+Mar 08 18:27:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182657.csv
+Mar 08 18:27:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:27:58 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:27:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.136:10873 - "POST /notify HTTP/1.1" 200
+Mar 08 18:28:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182757.csv
+Mar 08 18:28:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:28:58 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:28:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.42:9912 - "POST /notify HTTP/1.1" 200
+Mar 08 18:29:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182857.csv
+Mar 08 18:29:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:29:58 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:29:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.26:18066 - "POST /notify HTTP/1.1" 200
+Mar 08 18:30:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T182957.csv
+Mar 08 18:30:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:30:58 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:30:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.63:57032 - "POST /notify HTTP/1.1" 200
+Mar 08 18:31:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T183057.csv
+Mar 08 18:31:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:31:58 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:31:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.145:14710 - "POST /notify HTTP/1.1" 200
+Mar 08 18:32:58 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T183157.csv
+Mar 08 18:32:58 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:32:58 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:32:58 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.81:23135 - "POST /notify HTTP/1.1" 200
+Mar 08 18:33:44 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T183257.csv
+Mar 08 18:33:44 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:33:44 ip-172-31-69-206 fastapi[4514]:   Done: 6/100 anomalies flagged
+Mar 08 18:33:44 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:22962 - "GET /notify HTTP/1.1" 405
+Mar 08 18:33:59 ip-172-31-69-206 fastapi[4514]:       INFO   15.221.161.96:42243 - "POST /notify HTTP/1.1" 200
+Mar 08 18:34:05 ip-172-31-69-206 fastapi[4514]: Processing: s3://vxx4kn-anomalydetec/raw/sensors_20260308T183358.csv
+Mar 08 18:34:05 ip-172-31-69-206 fastapi[4514]:   Loaded 100 rows, columns: ['timestamp', 'temperature', 'humidity', 'pressure', 'wind_speed']
+Mar 08 18:34:05 ip-172-31-69-206 fastapi[4514]:   Done: 5/100 anomalies flagged
+Mar 08 18:34:05 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:23812 - "GET /health HTTP/1.1" 200
+Mar 08 18:34:07 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:23812 - "GET /docs HTTP/1.1" 200
+Mar 08 18:34:08 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:23812 - "GET /openapi.json HTTP/1.1" 200
+Mar 08 18:34:15 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:12925 - "GET /notifuy HTTP/1.1" 404
+Mar 08 18:34:20 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:12925 - "GET /notify HTTP/1.1" 405
+Mar 08 18:34:27 ip-172-31-69-206 fastapi[4514]:       INFO   216.30.182.34:14961 - "GET /notify HTTP/1.1" 405
