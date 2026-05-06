@@ -1,0 +1,7 @@
+boto3
+pandas
+numpy
+requests
+fastapi[standard]
+scikit-learn
+
