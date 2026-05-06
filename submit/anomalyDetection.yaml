@@ -1,0 +1,276 @@
+#  CloudFormation stack for anomaly-detection app with EC2, S3, SNS, IAM, and Elastic IP.
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template for anomaly-detection app with EC2, S3, SNS, IAM, and Elastic IP.
+
+Parameters:
+  InstanceType:
+    Description: The EC2 instance type
+    Type: String
+    Default: t3.micro
+  KeyName:
+    Description: ds5229_1
+    Type: 'AWS::EC2::KeyPair::KeyName'
+  UvaId:
+    Description: vxx4kn
+    Type: String
+    MinLength: 3
+    MaxLength: 9
+  SSHLocation:
+    Description:  216.30.182.34/32
+    Type: String
+    MinLength: 9
+    MaxLength: 18
+    Default: 0.0.0.0/0
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  GitHubRepoURL:
+    Description: URL of the GitHub repository containing the anomaly-detection app code
+    Type: String
+    Default: https://github.com/jmhowe03-jmh/anomaly-detection
+
+Resources:
+  # Security Grou:    allowing ports 22 from my ip address and port 8000 from anywhere
+  EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 instance allowing SSH and app access
+      SecurityGroupIngress:
+        - IpProtocol: tcp #Allow port 22 (SSH) from YOUR specific IP address, e.g. (1.2.3.4/32)
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SSHLocation
+          Description: Allow SSH access from specified IP range
+        - IpProtocol: tcp # Allow port 8000 (API) from anywhere (0.0.0.0/0)
+          FromPort: 8000
+          ToPort: 8000
+          CidrIp: 0.0.0.0/0
+          Description: Allow app access from anywhere
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-ec2-sg
+
+  # S3 Bucket:     application will use for raw uploads, processed output, state, and logs.
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DependsOn: SNSTopicPolicy
+    Properties:
+      BucketName: !Sub ${UvaId}-${AWS::StackName}
+      NotificationConfiguration:  #can technically get rid of dependson and notification config to speed up if wanted
+        TopicConfigurations:
+          - Event: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: raw/
+                  - Name: suffix
+                    Value: .csv
+            Topic: !Ref AnomalySNSTopic
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-bucket
+
+  # IAM Role for EC2 instance:     IAM policy that grants full access (read/write/delete/list) to that single S3 bucket only (no other resources).
+  EC2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-ec2-role
+
+  # IAM Instance Profile to attach the role to EC2
+  EC2InstanceProfile: 
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EC2InstanceRole
+
+
+  # IAM Policy for S3 bucket access
+  S3BucketAccessPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: !Sub ${AWS::StackName}-s3-access-policy
+      Roles:
+        - !Ref EC2InstanceRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:GetObject # IAM Role for EC2 instance:     IAM policy that grants full access (read/write/delete/list) to that single S3 bucket only 
+              - s3:PutObject
+              - s3:ListBucket
+              - s3:DeleteObject
+              - s3:GetBucketLocation
+            Resource:
+              - !Sub arn:aws:s3:::${S3Bucket}
+              - !Sub arn:aws:s3:::${S3Bucket}/*
+
+  # SNS Topic:     to send notifications when new files are uploaded to the S3 bucket.
+  AnomalySNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName:  ds5220-dp1
+      DisplayName: Anomaly Detection SNS Topic
+
+
+  SNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref AnomalySNSTopic
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowS3Publish
+            Effect: Allow
+            Principal:
+              Service: s3.amazonaws.com
+            Action: sns:Publish
+            Resource: !Ref AnomalySNSTopic
+            Condition:
+              ArnLike:
+                aws:SourceArn: !Sub arn:aws:s3:::${UvaId}-${AWS::StackName}
+
+  # Elastic IP:    instance has a stable public IP for the SNS subscription endpoint.
+  ElasticIP: 
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref EC2Instance
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-eip
+
+ # SNS Topic Subscription:     protocol; http, endpoint: elastic IP of port 8000
+  AnomalySNSSubscription:
+    Type: AWS::SNS::Subscription
+    DependsOn: ElasticIP
+    Properties:
+      Protocol: http
+      Endpoint: !Sub http://${ElasticIP}:8000/notify
+      TopicArn: !Ref AnomalySNSTopic
+
+  # EC2 Instance:    copied this from class code...
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-080e1f13689e07408
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 16
+            VolumeType: gp3
+            DeleteOnTermination: true
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          set -e
+
+          # Update and install Python + pip
+          apt-get update -y
+          apt-get install -y python3-pip python3-venv git awscli
+
+          #Pull your forked repo onto the instance 
+          cd /home/ubuntu
+          git clone ${GitHubRepoURL} app
+          cd app
+
+          #clone and cd
+          # Create a virtualenv in a known location
+          python3 -m venv /opt/anomaly-detection/venv
+          
+          # Activate and install deps
+          source /opt/anomaly-detection/venv/bin/activate
+          /opt/anomaly-detection/venv/bin/pip install -r /opt/anomaly-detection/requirements.txt
+
+          
+          # The app.py FastAPI app can be run using full paths if necessary, even from outside the virtualenv:
+          /opt/anomaly-detection/venv/bin/fastapi run /opt/anomaly-detection/app.py --reload
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-ec2-instance
+
+
+
+#outputtsss
+Outputs:
+  InstanceId:
+    Description: The EC2 instance ID
+    Value: !Ref EC2Instance
+    Export:
+      Name: !Sub ${AWS::StackName}-InstanceId
+
+  ElasticIPAddress:
+    Description: Elastic IP address attached to the EC2 instance
+    Value: !Ref ElasticIP
+    Export:
+      Name: !Sub ${AWS::StackName}-ElasticIP
+
+  APIEndpoint:
+    Description: FastAPI base URL
+    Value: !Sub http://${ElasticIP}:8000
+    Export:
+      Name: !Sub ${AWS::StackName}-APIEndpoint
+
+  SNSNotifyEndpoint:
+    Description: SNS HTTP subscription endpoint
+    Value: !Sub http://${ElasticIP}:8000/notify
+    Export:
+      Name: !Sub ${AWS::StackName}-SNSNotifyEndpoint
+
+  SecurityGroupId:
+    Description: The security group ID
+    Value: !Ref EC2SecurityGroup
+    Export:
+      Name: !Sub ${AWS::StackName}-SecurityGroupId
+
+  S3BucketName:
+    Description: The name of the S3 bucket
+    Value: !Ref S3Bucket
+    Export:
+      Name: !Sub ${UvaId}-${AWS::StackName}
+
+  S3BucketArn:
+    Description: The ARN of the S3 bucket
+    Value: !GetAtt S3Bucket.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-S3BucketArn
+
+  SNSTopicArn:
+    Description: ARN of the SNS topic
+    Value: !Ref AnomalySNSTopic
+    Export:
+      Name: !Sub ${AWS::StackName}-SNSTopicArn
+
+  IAMRoleArn:
+    Description: The IAM role ARN for the EC2 instance
+    Value: !GetAtt EC2InstanceRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-IAMRoleArn
+
+
+      #how do i logg my fastapi to a local file?
+      #how fo i sync a bopy of logfile to s3 bucket?
